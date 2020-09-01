@@ -22,11 +22,8 @@ def test_one_column_join(spark_session):
     actual_ds = join_dataframes(estudiantes_ds, notas_ds, cursos_ds, ['Carnet'], ['Carnet'], ['CodigoCurso'])
 
     expected_ds = spark_session.createDataFrame(
-        [
-            (12345, 'Juan Perez', 'Sociologia', 12345,80.0,1,4,'Int. a Sociologia'),(67890, 'Laura Chinchilla', 'Comunicacion', 67890,60.0,2,2,'Comunicacion')
-            
-        ],
-        ['student_id', 'grade', 'id', 'name'])
+        [(12345, 'Juan Perez', 'Sociologia', 12345,1,80.0,1,4,'Int. a Sociologia'),(67890, 'Laura Chinchilla', 'Comunicacion', 67890,2,60.0,2,2,'Comunicacion'),(23456,'Luisa Lane Sanchez','Biologia',23456,3,85.0,3,4,'Matematica General'),(23987,'Eduardo Soto Jimenez','Filologia','23987',4,90.0,4,1,'Actividad Deportiva'),(78219,'Warner Sanchez Sanchez','Ing. Civil',78219,5,75.0,5,4,'Estatica'),(91234,'Marco Alvarado Rojas','Ing. Electrica',91234,6,70.0,6,4,'Circuicos en CC')])
+
 
     expected_ds.show()
     actual_ds.show()
