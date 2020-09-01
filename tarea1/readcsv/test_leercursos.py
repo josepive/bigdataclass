@@ -1,4 +1,4 @@
-from .joiner import join_dataframes
+from .leercursos import join_dataframes
 
 
 def test_one_column_join(spark_session):
@@ -6,19 +6,25 @@ def test_one_column_join(spark_session):
     
     estudiantes_ds = spark_session.createDataFrame(estudiantes_data,['Carnet', 'Nombre', 'Carrera'])
     
-    notas_data = [(12345,001,80),(67890,002,60),(23456,003,85),(23987,004,90),(78219,005,75),(91234,006,70)]
+    notas_data = [(12345,1001,80),(67890,1002,60),(23456,1003,85),(23987,1004,90),(78219,1005,75),(91234,1006,70)]
 
     notas_ds = spark_session.createDataFrame(notas_data,['Carnet', 'CodigoCurso', 'Nota'])
 
-    grades_ds.show()
-    student_ds.show()
+    cursos_data = [(1001,4,'Int. a Sociologia'),(1002,2,'Comunicacion'),(1003,4,'Matematica General'),(1004,1,'Actividad Deportiva'),(1005,4,'Estatica'),(1006,4,'Circuicos en CC')] 
 
-    actual_ds = join_dataframes(grades_ds, student_ds, ['student_id'], ['id'])
+    cursos_ds = spark_session.createDataFrame(cursos_data,['CodigoCurso', 'Creditos', 'Carrera'])
+
+
+    estudiantes_ds.show()
+    notas_ds.show()
+    cursos_ds.show()
+
+    actual_ds = join_dataframes(estudiantes_ds, notas_ds, cursos_ds, ['Carnet'], ['Carnet'], ['CodigoCurso'])
 
     expected_ds = spark_session.createDataFrame(
         [
-            (1, 50, 1, 'Juan'),
-            (2, 100, 2, 'Maria'),
+            (12345, 'Juan Perez', 'Sociologia', 12345,80.0,1,4,'Int. a Sociologia'),(67890, 'Laura Chinchilla', 'Comunicacion', 67890,60.0,2,2,'Comunicacion')
+            
         ],
         ['student_id', 'grade', 'id', 'name'])
 
