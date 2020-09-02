@@ -42,11 +42,15 @@ notas_df = spark.read.csv('notas.csv',
 def join_dataframes(estudiantes_df, notas_df, cursos_df, notas_head, cursos_head):
 
     joint_df = estudiantes_df.join(notas_df, on=notas_head)
-    # joint_df.printSchema()
-    # joint_df.show()
+    joint_df.printSchema()
+    joint_df.show()
 
     jointFinal_df = joint_df.join(cursos_df, on=cursos_head)
-    # jointFinal_df.printSchema()
-    # jointFinal_df.show()
+    jointFinal_df.printSchema()
+    jointFinal_df.show()
 
     return jointFinal_df
+
+actual_df = join_dataframes(estudiantes_df, notas_df, cursos_df,
+                                ['Carnet'], ['CodigoCurso'])
+print(actual_df)

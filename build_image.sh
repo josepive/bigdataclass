@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build --tag bigdata .
+docker build --tag tarea1_jpiedra .
