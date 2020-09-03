@@ -56,22 +56,7 @@ actual_df = join_dataframes(estudiantes_df, notas_df, cursos_df,
 print(actual_df)
 
 
-def obt_JoinTotalLimpio(estudiantes_df, cursos_df, notas_df):
 
-    joint_df = estudiantes_df.join(notas_df, estudiantes_df.Carnet == notas_df.Carnet)
-
-    repeated_columns = [c for c in estudiantes_df.columns if c in notas_df.columns]
-    for col in repeated_columns:
-        joint_df = joint_df.drop(notas_df[col])
-
-    jointFinal_df = joint_df.join(cursos_df, joint_df.CodigoCursos == curso_df.CodigoCurso)
-
-    repeated_columns2 = [c for c in joint_df.columns if c in curso_df.columns]
-    for col in repeated_columns2:
-        jointFinal_df = jointFinal_df.drop(curso_df[col])
-
-    jointFinal_df.show()
-    return jointFinal_df  
 
 def obt_MejorEstudiante(join_df):
 
