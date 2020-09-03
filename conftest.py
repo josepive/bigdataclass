@@ -9,8 +9,6 @@ def spark_session():
     s = SparkSession.builder.appName('pytest-local-spark').master('local') \
         .getOrCreate()
 
-    s.sparkContext.setLogLevel('WARN')
-
     yield s
 
     s.stop()

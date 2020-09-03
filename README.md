@@ -1,18 +1,26 @@
-# Instituto Tecnológico de Costa Rica
-## Programa de Ciencia de los Datos - Módulo Big Data
-El repositorio actual contiene recursos para el uso de los estudiantes como
-parte del módulo de Big Data, únicamente, o como material de referencia para
-actividades sin fines de lucro.
+# Tarea 1
+## Jose Piedra Venegas
 
-Los derechos de autoría corresponden al Instituto Tecnológico de Costa Rica
-y debe darse crédito en cualquier tipo de uso, fuera de los programas
-impartidos por el Instituto
+1. Construir imagen de Docker (tarea1_jpiedra)
 
-# Costa Rica Institute of Technology
-# Data Science Program - Big Data Class
-This repository contains resources inteded to be used by students taking the
-Big Data class, only, or as reference material for not for profit activities.
+```
+sh build_image.sh
+```
 
-Copyright belongs to Costa Rica Institute of Technology and appropriate
-citations are expected for any type of usage, outside of the programs managed
-by the Institute.
+2. Correr imagen de Docker (tarea1_jpiedra)
+
+```
+sh run_image.sh
+```
+
+3. Dentro del shell de la imagen (tarea1_jpiedra) ejecutar spark-submit
+
+```
+sh run_programaestudiante.sh
+```
+
+4. Las 3 pruebas (test_multicolumn_join, test_aggregation, test_top) se ejecutan con
+
+```
+pytest
+```
