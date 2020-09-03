@@ -207,3 +207,4 @@ def test_top(spark_session):
     actual_ds.show()
 
     assert actual_ds.collect() == expected_ds.collect()
+

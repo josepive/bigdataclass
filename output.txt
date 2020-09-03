@@ -1,0 +1,82 @@
++------+--------------------+-------+
+|Carnet|              Nombre|Carrera|
++------+--------------------+-------+
+| 12345|  Juan Perez Bonilla|    SOC|
+| 27890|Laura Chinchilla ...|    COM|
+| 33456|  Luisa Lane Sanchez|    BIO|
+| 43987|Eduardo Soto Jimenez|    PHI|
+| 58219|Warner Sanchez Sa...|    ICV|
+| 61234|Marco Alvarado Rojas|    IEL|
++------+--------------------+-------+
+
++-----+--------+-------+
+|Curso|Creditos|Carrera|
++-----+--------+-------+
+| 1001|       4|    SOC|
+| 1002|       4|    SOC|
+| 2001|       2|    COM|
+| 2002|       3|    COM|
+| 3001|       4|    BIO|
+| 3002|       4|    BIO|
+| 4001|       1|    PHI|
+| 4002|       3|    PHI|
+| 5001|       4|    ICV|
+| 5002|       5|    ICV|
+| 6001|       4|    IEL|
+| 6002|       4|    IEL|
++-----+--------+-------+
+
++------+-----+----+
+|Carnet|Curso|Nota|
++------+-----+----+
+| 12345| 1001|80.0|
+| 12345| 1002|90.0|
+| 27890| 2001|90.0|
+| 27890| 2002|85.0|
+| 33456| 3001| 0.0|
+| 43987| 4001|95.0|
+| 43987| 4002|80.0|
+| 58219| 5001|60.0|
+| 61234| 6001|70.0|
+| 61234| 6002|45.0|
+| 61234| 6002|75.0|
++------+-----+----+
+
++------+--------------------+-------+-----+----+--------+
+|Carnet|              Nombre|Carrera|Curso|Nota|Creditos|
++------+--------------------+-------+-----+----+--------+
+| 12345|  Juan Perez Bonilla|    SOC| 1001|80.0|       4|
+| 12345|  Juan Perez Bonilla|    SOC| 1002|90.0|       4|
+| 27890|Laura Chinchilla ...|    COM| 2001|90.0|       2|
+| 27890|Laura Chinchilla ...|    COM| 2002|85.0|       3|
+| 33456|  Luisa Lane Sanchez|    BIO| 3001| 0.0|       4|
+| 43987|Eduardo Soto Jimenez|    PHI| 4001|95.0|       1|
+| 43987|Eduardo Soto Jimenez|    PHI| 4002|80.0|       3|
+| 58219|Warner Sanchez Sa...|    ICV| 5001|60.0|       4|
+| 61234|Marco Alvarado Rojas|    IEL| 6001|70.0|       4|
+| 61234|Marco Alvarado Rojas|    IEL| 6002|75.0|       4|
+| 61234|Marco Alvarado Rojas|    IEL| 6002|45.0|       4|
++------+--------------------+-------+-----+----+--------+
+
++------+--------------------+-------+--------+
+|Carnet|              Nombre|Carrera|Promedio|
++------+--------------------+-------+--------+
+| 12345|  Juan Perez Bonilla|    SOC|    85.0|
+| 27890|Laura Chinchilla ...|    COM|    87.0|
+| 33456|  Luisa Lane Sanchez|    BIO|     0.0|
+| 43987|Eduardo Soto Jimenez|    PHI|   83.75|
+| 58219|Warner Sanchez Sa...|    ICV|    60.0|
+| 61234|Marco Alvarado Rojas|    IEL|   63.33|
++------+--------------------+-------+--------+
+
++------+--------------------+-------+--------+
+|Carnet|              Nombre|Carrera|Promedio|
++------+--------------------+-------+--------+
+| 27890|Laura Chinchilla ...|    COM|    87.0|
+| 12345|  Juan Perez Bonilla|    SOC|    85.0|
+| 43987|Eduardo Soto Jimenez|    PHI|   83.75|
+| 61234|Marco Alvarado Rojas|    IEL|   63.33|
+| 58219|Warner Sanchez Sa...|    ICV|    60.0|
+| 33456|  Luisa Lane Sanchez|    BIO|     0.0|
++------+--------------------+-------+--------+
+

@@ -79,7 +79,11 @@ if __name__ == '__main__':
 
     joint_df = join_dataframes(estudiante_df, curso_df, nota_df)
 
+    joint_df.show()
+
     aggregated_df = aggregate_dataframe(joint_df)
+
+    aggregated_df.show()
 
     top_df = top_dataframe(aggregated_df)
 
