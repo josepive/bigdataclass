@@ -19,8 +19,17 @@ sh run_image.sh
 sh run_programaestudiante.sh
 ```
 
-4. Las 3 pruebas (test_multicolumn_join, test_aggregation, test_top) se ejecutan con
+4. Las pruebas se ejecutan con
 
 ```
 pytest
 ```
+
+y son las siguientes:
+
+- test_multicolumn_join: prueba de join de columnas de DataFrames
+- test_aggregation: prueba de agregaciones parciales
+- test_top: prueba de promedios ponderados
+- test_null: prueba de promedios ponderados con datos nulos (creditos)
+- test_single: prueba de promedios ponderados con una sola fila de estudiante
+- test_missing: prueba de promedios ponderados con datos faltantes (2 estudiantes)

@@ -119,9 +119,9 @@ def test_aggregation(spark_session):
     nota_ds = spark_session.createDataFrame(
         nota_data, ['Carnet', 'Curso', 'Nota'])
 
-    #estudiante_ds.show()
-    #curso_ds.show()
-    #nota_ds.show()
+    # estudiante_ds.show()
+    # curso_ds.show()
+    # nota_ds.show()
 
     joint_df = join_dataframes(estudiante_ds, curso_ds, nota_ds)
 
@@ -208,3 +208,178 @@ def test_top(spark_session):
 
     assert actual_ds.collect() == expected_ds.collect()
 
+
+# Prueba con datos nulos (créditos)
+def test_null(spark_session):
+    # Datos de prueba de estudiantes
+    estudiante_data = [(12345, 'Juan Perez', 'SOC'),
+                       (27890, 'Laura Chinchilla', 'COM'),
+                       (33456, 'Luisa Lane', 'BIO'),
+                       (43987, 'Eduardo Soto', 'PHI'),
+                       (58219, 'Warner Sanchez', 'ICV'),
+                       (61234, 'Marco Alvarado', 'IEL')]
+
+    estudiante_ds = spark_session.createDataFrame(
+        estudiante_data, ['Carnet', 'Nombre', 'Carrera'])
+
+    # Datos de prueba de cursos
+    curso_data = [(1001, 0, 'SOC'),
+                  (1002, 0, 'SOC'),
+                  (2001, 0, 'COM'),
+                  (2002, 0, 'COM'),
+                  (3001, 0, 'BIO'),
+                  (3002, 0, 'BIO'),
+                  (4001, 0, 'PHI'),
+                  (4002, 0, 'PHI'),
+                  (5001, 0, 'ICV'),
+                  (5002, 0, 'ICV'),
+                  (6001, 0, 'IEL'),
+                  (6002, 0, 'IEL')]
+
+    curso_ds = spark_session.createDataFrame(
+        curso_data, ['Curso', 'Creditos', 'Carrera'])
+
+    # Datos de prueba de notas
+    nota_data = [(12345, 1001, 80),
+                 (12345, 1002, 90),
+                 (27890, 2001, 90),
+                 (27890, 2002, 85),
+                 (33456, 3001, 0),
+                 (43987, 4001, 95),
+                 (43987, 4002, 80),
+                 (58219, 5001, 60),
+                 (61234, 6001, 70),
+                 (61234, 6002, 45),
+                 (61234, 6002, 75)]
+
+    nota_ds = spark_session.createDataFrame(
+        nota_data, ['Carnet', 'Curso', 'Nota'])
+
+    estudiante_ds.show()
+    curso_ds.show()
+    nota_ds.show()
+
+    joint_df = join_dataframes(estudiante_ds, curso_ds, nota_ds)
+
+    aggregated_df = aggregate_dataframe(joint_df)
+
+    actual_ds = top_dataframe(aggregated_df)
+
+    expected_ds = spark_session.createDataFrame(
+        [(58219, 'Warner Sanchez', 'ICV', 0.0),
+         (27890, 'Laura Chinchilla', 'COM', 0.0),
+         (12345, 'Juan Perez', 'SOC', 0.0),
+         (61234, 'Marco Alvarado', 'IEL', 0.0),
+         (43987, 'Eduardo Soto', 'PHI', 0.0),
+         (33456, 'Luisa Lane', 'BIO', 0.0)],
+        ['Carnet', 'Nombre', 'Carrera', 'Promedio'])
+
+    expected_ds.show()
+    actual_ds.show()
+
+    assert actual_ds.collect() == expected_ds.collect()
+
+
+# Prueba con join de una fila
+def test_single(spark_session):
+    # Datos de prueba de estudiantes
+    estudiante_data = [(12345, 'Juan Perez', 'SOC')]
+
+    estudiante_ds = spark_session.createDataFrame(
+        estudiante_data, ['Carnet', 'Nombre', 'Carrera'])
+
+    # Datos de prueba de cursos
+    curso_data = [(1001, 4, 'SOC'),
+                  (1002, 4, 'SOC')]
+
+    curso_ds = spark_session.createDataFrame(
+        curso_data, ['Curso', 'Creditos', 'Carrera'])
+
+    # Datos de prueba de notas
+    nota_data = [(12345, 1001, 80),
+                 (12345, 1002, 90)]
+
+    nota_ds = spark_session.createDataFrame(
+        nota_data, ['Carnet', 'Curso', 'Nota'])
+
+    estudiante_ds.show()
+    curso_ds.show()
+    nota_ds.show()
+
+    joint_df = join_dataframes(estudiante_ds, curso_ds, nota_ds)
+
+    aggregated_df = aggregate_dataframe(joint_df)
+
+    actual_ds = top_dataframe(aggregated_df)
+
+    expected_ds = spark_session.createDataFrame(
+        [(12345, 'Juan Perez', 'SOC', 85.0)],
+        ['Carnet', 'Nombre', 'Carrera', 'Promedio'])
+
+    expected_ds.show()
+    actual_ds.show()
+
+    assert actual_ds.collect() == expected_ds.collect()
+
+
+# Prueba con datos faltantes
+def test_missing(spark_session):
+    # Datos de prueba de estudiantes
+    estudiante_data = [(12345, 'Juan Perez', 'SOC'),
+                       (33456, 'Luisa Lane', 'BIO'),
+                       (43987, 'Eduardo Soto', 'PHI'),
+                       (61234, 'Marco Alvarado', 'IEL')]
+
+    estudiante_ds = spark_session.createDataFrame(
+        estudiante_data, ['Carnet', 'Nombre', 'Carrera'])
+
+    # Datos de prueba de cursos
+    curso_data = [(1001, 4, 'SOC'),
+                  (1002, 4, 'SOC'),
+                  (2001, 2, 'COM'),
+                  (2002, 3, 'COM'),
+                  (3001, 4, 'BIO'),
+                  (3002, 4, 'BIO'),
+                  (4001, 1, 'PHI'),
+                  (4002, 3, 'PHI'),
+                  (5001, 4, 'ICV'),
+                  (5002, 5, 'ICV'),
+                  (6001, 4, 'IEL'),
+                  (6002, 4, 'IEL')]
+
+    curso_ds = spark_session.createDataFrame(
+        curso_data, ['Curso', 'Creditos', 'Carrera'])
+
+    # Datos de prueba de notas
+    nota_data = [(12345, 1001, 80),
+                 (12345, 1002, 90),
+                 (27890, 2001, 90),
+                 (27890, 2002, 85),
+                 (33456, 3001, 0),
+                 (43987, 4001, 95),
+                 (43987, 4002, 80),
+                 (58219, 5001, 60),
+                 (61234, 6001, 70),
+                 (61234, 6002, 45),
+                 (61234, 6002, 75)]
+
+    nota_ds = spark_session.createDataFrame(
+        nota_data, ['Carnet', 'Curso', 'Nota'])
+
+    joint_df = join_dataframes(estudiante_ds, curso_ds, nota_ds)
+
+    aggregated_df = aggregate_dataframe(joint_df)
+
+    actual_ds = top_dataframe(aggregated_df)
+
+    expected_ds = spark_session.createDataFrame(
+        [(12345, 'Juan Perez', 'SOC', 85.0),
+         (43987, 'Eduardo Soto', 'PHI', 83.75),
+         (61234, 'Marco Alvarado', 'IEL', 63.33),
+         (33456, 'Luisa Lane', 'BIO', 0.0)],
+        ['Carnet', 'Nombre', 'Carrera', 'Promedio'])
+
+    expected_ds.show()
+    actual_ds.show()
+
+    assert actual_ds.collect() == expected_ds.collect()

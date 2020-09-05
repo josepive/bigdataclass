@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import (DateType, IntegerType, FloatType,
                                StringType, StructField, StructType, TimestampType)
-from pyspark.sql.functions import sum, round
+from pyspark.sql.functions import sum, round, when, count
 
 
 def join_dataframes(estudiante_df, curso_df, nota_df):
@@ -21,8 +21,8 @@ def join_dataframes(estudiante_df, curso_df, nota_df):
 def aggregate_dataframe(joint_df):
     joint_1_df = joint_df.select('Carnet', 'Nota', 'Creditos')
 
-    weighted_average_df = joint_1_df.groupBy('Carnet').agg(round(sum(
-        joint_df.Nota * joint_df.Creditos)/sum(joint_df.Creditos), 2).alias('Promedio'))
+    weighted_average_df = joint_1_df.groupBy('Carnet').agg(round(sum(joint_df.Nota * joint_df.Creditos) / (
+        when(sum(joint_df.Creditos) == 0, count(joint_df.Creditos))).otherwise(sum(joint_df.Creditos)), 2).alias('Promedio'))
 
     aggregated_df = joint_df.select('Carnet', 'Nombre', 'Carrera').distinct().join(
         weighted_average_df, 'Carnet').sort('Carnet')
